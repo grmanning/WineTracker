@@ -1,6 +1,7 @@
 <!DOCTYPE HTML>
 <html lang="en-US">
 <head>
+<!-- Version 2 -->
 <meta charset="UTF-8">
 <title>Wine Tracker</title>
 
@@ -109,15 +110,15 @@
 	}
 	if ($name != "") {
 		$today = date("Y-m-d");
-   	 	$fh = fopen("twinehistory.txt","a");
+   	 	$fh = fopen("winehistory.txt","a");
     	fwrite($fh,"$action $name $today\n");
-    	$lh = fopen("twinelog.txt","a");
+    	$lh = fopen("winelog.txt","a");
 		fwrite($lh,"ADD $action $name $today\n");
 		fclose($lh);
 	 }
 	if (isset($_POST['undo'])) {
 		$firsttime = 0;
-    	$fh = fopen("twinehistory.txt","r") 
+    	$fh = fopen("winehistory.txt","r") 
     		or $firsttime = 1;
     
 		if (!$firsttime) {
@@ -127,13 +128,13 @@
 				$i = $i + 1;
 				}
 			fclose($fh);
-			$fh = fopen("twinehistory.txt","w");
+			$fh = fopen("winehistory.txt","w");
 			$i = $i - 2;	 
 			for ($t=0;$t < $i;$t++) {
 				fwrite($fh,"$line[$t]");
 				}
 			fclose($fh);
-			$lh = fopen("twinelog.txt","a");
+			$lh = fopen("winelog.txt","a");
 			fwrite($lh,"REM $line[$t]");
 			fclose($lh);
 		}
@@ -143,7 +144,10 @@
 <tbody>
 <tr bgcolor="#FFFF11">
 <td 1 class="pageName" id="form" nowrap="wrap" align="middle" valign="middle" bgcolor="#00DDDD" width="50%">
-	Suspects' <br>Wine <br>Tracker
+	Suspects' <br>Wine <br>Tracker<br><font size="4">Version 3 Build 
+	<?php 
+		date_default_timezone_set("Australia/Canberra");
+		echo date("F d Y H:i:s.", filectime("winetracker.php"));?></font>
 	</td>
 <td 2 class="pageName" id="logo" nowrap="nowrap" align="middle" valign="middle" bgcolor="#00DDDD" width="50%">
 <?php
@@ -154,7 +158,7 @@ echo "<p align=\"middle\"><img width=\"400\" height=\"320\" alt=\"\" border=\"0\
 </tr>
 <tr bgcolor="#FFFF11" >
 <td 1 class="pageName" id="form" nowrap="nowrap" valign="top" bgcolor="#00DDDD" width="50%" colspan="1">
-<form action="winetrackerv3.php" method="POST">
+<form action="winetracker.php" method="POST">
 <fieldset>
 	<legend><font size="6.5em">Who paid today?</font></legend>
 	<table width="100%" border="0" cellspacing="12" cellpadding="0"><tr  width="50%">	
@@ -184,7 +188,7 @@ echo "<p align=\"middle\"><img width=\"400\" height=\"320\" alt=\"\" border=\"0\
 	</table>
 </td>
 <td 1 class="pageName" id="form" nowrap="nowrap" valign="top" bgcolor="#00DDDD" width="50%" colspan="1">
-<form action="winetrackerv3.php" method="POST">
+<form action="winetracker.php" method="POST">
 <fieldset>
 	<legend><font size="6.5em">Who enjoyed as well?</font></legend>
 	<table width="100%" border="0" cellspacing="12" cellpadding="0"><tr  width="50%">	
@@ -221,7 +225,7 @@ echo "<p align=\"middle\"><img width=\"400\" height=\"320\" alt=\"\" border=\"0\
 <tbody>
 <tr>
 <td 4 valign="top" width="50%">
-<form action="winetrackerv3.php" method="POST">
+<form action="winetracker.php" method="POST">
 <fieldset>
 	<legend><font size="6.5em">History:</font></legend>
 <input type="submit" name="refresh" value="Refresh" class="refresh">
@@ -234,7 +238,7 @@ echo "<p align=\"middle\"><img width=\"400\" height=\"320\" alt=\"\" border=\"0\
     <div class = "history">
 <?php
     $firsttime = 0;
-    $fh = fopen("twinehistory.txt","r") 
+    $fh = fopen("winehistory.txt","r") 
     	or $firsttime = 1;
     
     if ($firsttime) {
