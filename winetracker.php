@@ -40,6 +40,28 @@
 
 </head>
 <body>
+
+<script>
+	var people = [];
+	var peopleindx = 0;
+function refreshRatios() {
+	var i = 0;
+	for (i = 0; i < peopleindx; i++) {
+    var ratio = people[i].paid / people[i].enjoyed;
+    ratio = ratio.toFixed(1);
+    var rId = people[i].name.concat("ratio");
+    document.getElementById(rId).innerHTML = ratio;
+    }
+	return true;
+}
+function incrementGeoff() {
+	people[0].paid++;
+	document.images["Geoff"].src = "red.jpg";
+	return refreshRatios();
+	return true;
+}
+</script>
+
 <?php
 	$name = "";
 	if (isset($_POST['anne-marie'])) {
@@ -280,9 +302,26 @@ echo "<p align=\"middle\"><img width=\"400\" height=\"320\" alt=\"\" border=\"0\
 	 		if ($enjoyed == NULL) {
 	 			$enjoyed = 0;
 	 		}	 		
-	 		echo "<tr><td>$who:</td><td>$paid/$enjoyed</td></tr>";
+//  Make HTML ratios upatable
+	 		$whoratio = $who."ratio";	 		
+	 		echo "
+	 		<tr><td>$who:</td><td id=\"$whoratio\">ratio</td><td>$paid/$enjoyed</td><td><a href=\"#\" onMouseDown=\"return increment$who()\"><img id=\"$who\" src=\"grey.jpg\"></a></td></tr>";
+	 		echo "<script>";
+			echo "var person = {name:\"$who\", paid:\"$paid\", enjoyed:\"$enjoyed\"};";
+			echo "people[peopleindx++] = person;";
+			echo "</script>";
 	 	}
 	 	echo "</tbody></table>";
+// Calc & update ratios first time on load in JS
+	 	echo "<script>";
+		echo "var i = 0;";
+		echo "for (i = 0; i < peopleindx; i++) {";
+    	echo "var ratio = 100 * (people[i].paid / people[i].enjoyed);";
+    	echo "ratio = ratio.toFixed(0);";
+    	echo "var rId = people[i].name.concat(\"ratio\");";
+    	echo "	document.getElementById(rId).innerHTML = ratio.concat(\"% \");";
+    	echo "}";
+		echo "</script>";	
 	 echo "<hr><font color='blue'>History:</font><br />";	
 	 $t = $i - 2;
 	 while ($t >= 0) {
