@@ -1,7 +1,10 @@
 <!DOCTYPE HTML>
 <html lang="en-US">
 <head>
-<!-- Version 4 -->
+<!-- Version 4.1 
+Center justify buttons
+Move Undo to History
+ -->
 <meta charset="UTF-8">
 <title>Wine Tracker</title>
 
@@ -34,11 +37,12 @@
 		border-radius: 1em; 
 		font-size:1.2em;
 		background-color: #DDDDDD;
+		width: 8em;
 	}
 	.undo {
 		color: red;
 		border-radius: 1em; 
-		font-size:1em;
+		font-size:1.5em;
 		background-color: #DDDDDD;
 	}
 	img.resize {
@@ -267,18 +271,18 @@ function refreshRatios() {
 <fieldset>
 	<legend><font size="6.5em">Who imbibed today?</font></legend>
 
-	<table width="100%" border="0" cellspacing="12" cellpadding="0" >	
-		<tr><td><button class="imbibe" id="AnneMarieI" type="button" onMouseDown="return clickIAnneMarie()">Anne-Marie</button></td></tr>
-		<td><button class="imbibe" id="CathI" type="button" onMouseDown="return clickICath()">Cath</button></td></tr>
-		<tr><td><button class="imbibe" id="DougI" type="button" onMouseDown="return clickIDoug()">Doug</button></td></tr>
-		<td><button class="imbibe" id="GeoffI" type="button" onMouseDown="return clickIGeoff()">Geoff</button></td></tr>
-		<tr><td><button class="imbibe" id="GeoffreyI" type="button" onMouseDown="return clickIGeoffrey()">Geoffrey</button></td></tr>
-		<td><button class="imbibe" id="MartinI" type="button" onMouseDown="return clickIMartin()">Martin</button></td></tr>
-		<tr><td><button class="imbibe" id="MaxineI" type="button" onMouseDown="return clickIMaxine()">Maxine</button></td></tr>
-		<td><button class="imbibe" id="NicoleI" type="button" onMouseDown="return clickINicole()">Nicole</button></td></tr>
-		<tr><td><button class="imbibe" id="PamI" type="button" onMouseDown="return clickIPam()">Pam</button></td></tr>
-		<td><button class="imbibe" id="PeterI" type="button" onMouseDown="return clickIPeter()">Peter</button></td></tr>		
-		<tr><td><button class="imbibe" id="TrevorI" type="button" onMouseDown="return clickITrevor()">Trevor</button></td></tr>
+	<table width="100%" border="0" cellspacing="12" cellpadding="0">	
+		<tr><td align="center"><button class="imbibe" id="AnneMarieI" type="button" onMouseDown="return clickIAnneMarie()">Anne-Marie</button></td></tr>
+		<td align="center"><button class="imbibe" id="CathI" type="button" onMouseDown="return clickICath()">Cath</button></td></tr>
+		<tr><td align="center"><button class="imbibe" id="DougI" type="button" onMouseDown="return clickIDoug()">Doug</button></td></tr>
+		<td align="center"><button class="imbibe" id="GeoffI" type="button" onMouseDown="return clickIGeoff()">Geoff</button></td></tr>
+		<tr><td align="center"><button class="imbibe" id="GeoffreyI" type="button" onMouseDown="return clickIGeoffrey()">Geoffrey</button></td></tr>
+		<td align="center"><button class="imbibe" id="MartinI" type="button" onMouseDown="return clickIMartin()">Martin</button></td></tr>
+		<tr><td align="center"><button class="imbibe" id="MaxineI" type="button" onMouseDown="return clickIMaxine()">Maxine</button></td></tr>
+		<td align="center"><button class="imbibe" id="NicoleI" type="button" onMouseDown="return clickINicole()">Nicole</button></td></tr>
+		<tr><td align="center"><button class="imbibe" id="PamI" type="button" onMouseDown="return clickIPam()">Pam</button></td></tr>
+		<td align="center"><button class="imbibe" id="PeterI" type="button" onMouseDown="return clickIPeter()">Peter</button></td></tr>		
+		<tr><td align="center"><button class="imbibe" id="TrevorI" type="button" onMouseDown="return clickITrevor()">Trevor</button></td></tr>
 	</table>
 
 </td>
@@ -286,18 +290,18 @@ function refreshRatios() {
 <fieldset>
 	<legend><font size="6.5em">Who is paying?</font></legend>
 
-	<table width="100%" border="0" cellspacing="12" cellpadding="0" >	
-		<tr><td><button class="pay" id="AnneMarieP" type="button" onMouseDown="return clickPAnneMarie()">Anne-Marie</button></td></tr>
-		<td><button class="pay" id="CathP" type="button" onMouseDown="return clickPCath()">Cath</button></td></tr>
-		<tr><td><button class="pay" id="DougP" type="button" onMouseDown="return clickPDoug()">Doug</button></td></tr>
-		<td><button class="pay" id="GeoffP" type="button" onMouseDown="return clickPGeoff()">Geoff</button></td></tr>
-		<tr><td><button class="pay" id="GeoffreyP" type="button" onMouseDown="return clickPGeoffrey()">Geoffrey</button></td></tr>
-		<td><button class="pay" id="MartinP" type="button" onMouseDown="return clickPMartin()">Martin</button></td></tr>
-		<tr><td><button class="pay" id="MaxineP" type="button" onMouseDown="return clickPMaxine()">Maxine</button></td></tr>
-		<td><button class="pay" id="NicoleP" type="button" onMouseDown="return clickPNicole()">Nicole</button></td></tr>
-		<tr><td><button class="pay" id="PamP" type="button" onMouseDown="return clickPPam()">Pam</button></td></tr>
-		<td><button class="pay" id="PeterP" type="button" onMouseDown="return clickPPeter()">Peter</button></td></tr>		
-		<tr><td><button class="pay" id="TrevorP" type="button" onMouseDown="return clickPTrevor()">Trevor</button></td></tr>
+	<table width="100%" border="0" cellspacing="12" cellpadding="0">	
+		<tr><td align="center" align="center"><button class="pay" id="AnneMarieP" type="button" onMouseDown="return clickPAnneMarie()">Anne-Marie</button></td></tr>
+		<td align="center"><button class="pay" id="CathP" type="button" onMouseDown="return clickPCath()">Cath</button></td></tr>
+		<tr><td align="center"><button class="pay" id="DougP" type="button" onMouseDown="return clickPDoug()">Doug</button></td></tr>
+		<td align="center"><button class="pay" id="GeoffP" type="button" onMouseDown="return clickPGeoff()">Geoff</button></td></tr>
+		<tr><td align="center"><button class="pay" id="GeoffreyP" type="button" onMouseDown="return clickPGeoffrey()">Geoffrey</button></td></tr>
+		<td align="center"><button class="pay" id="MartinP" type="button" onMouseDown="return clickPMartin()">Martin</button></td></tr>
+		<tr><td align="center"><button class="pay" id="MaxineP" type="button" onMouseDown="return clickPMaxine()">Maxine</button></td></tr>
+		<td align="center"><button class="pay" id="NicoleP" type="button" onMouseDown="return clickPNicole()">Nicole</button></td></tr>
+		<tr><td align="center"><button class="pay" id="PamP" type="button" onMouseDown="return clickPPam()">Pam</button></td></tr>
+		<td align="center"><button class="pay" id="PeterP" type="button" onMouseDown="return clickPPeter()">Peter</button></td></tr>		
+		<tr><td align="center"><button class="pay" id="TrevorP" type="button" onMouseDown="return clickPTrevor()">Trevor</button></td></tr>
 	</table>
 </td>
 </td>
@@ -312,11 +316,8 @@ function refreshRatios() {
 	<table class="3col" width="100%" border="0" cellspacing="0" cellpadding="0">
 	<tbody>
 	<tr>
-	<td valign="top" align="left" width="50%"><input type="submit" name="save" value="SAVE" class="save"></td>
-	<td valign="top" align="right" width="50%"><input type="submit" name="refresh" value="Refresh" class="refresh"></td>
-	</tr>
-	<tr><td width="50%"></td>
-	<td valign="top" align="right" width="50%"><input type="submit" name="undo" value="Undo last action in history" class="undo"></told>
+	<td valign="top" align="center" width="50%"><input type="submit" name="save" value="SAVE" class="save"></td>
+	<td valign="top" align="center" width="50%"><input type="submit" name="refresh" value="Refresh" class="refresh"></td>
 	</tr>
 <textarea id="updateData" name = "updateData" class="hide" cols="120"></textarea>
 </fieldset>
@@ -467,13 +468,17 @@ function refreshRatios() {
 			}
 	 	}
     ?>
-    </td><td width="50%" valign="top" align="right"><img src="Doug_The_Giraffe1.jpg" width="400px"><br>
+    </td>
+    <td width="50%" valign="top" align="right">
+    <input type="submit" name="undo" value="Undo last action in history" class="undo"><br><br>
+    <img src="Doug_The_Giraffe1.jpg" width="400px"><br>
     <img src="Doug_The_Giraffe2.jpg" width="400px"><br>
     <img src="Doug_The_Giraffe3.jpg" width="400px"><br>
     </td></tbody></table>
     </div>
 
-
+</fieldset>
+</form>
 
 <font size="6">Version 4 Build 
 <?php
