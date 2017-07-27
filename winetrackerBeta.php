@@ -6,8 +6,9 @@
 A web app with client-side Javascript to record who partook of wine and who donated the wine at a Suspects' lunch.
  -->
 
-<?php $version = "4.2"; ?>
+<?php $version = "4.3"; ?>
 <!--
+Version 4.3: Sort the candidates using sort()
 Version 4.2: Realign buttons in a single table to save space
 Version 4.1: Button placement changes
 Version 4: New javascript prototype to allow dynamic calculation on the client side
@@ -337,50 +338,41 @@ var peopleindx = 0;
 
 function refreshRatios() {
 // 	arrays to store the sorted people indexes and their calculated ratios to find the best candidate for donating today
-	var highlight = [];
-	var ratios = [];
-	
-	var i = 0;
 
+	var i = 0;
+	var candidates = [];
+	var candindx  = 0;
 	for (i = 0; i < peopleindx; i++) {
 		var paid = people[i].paid;
+		
 // 		Add 1 if selected to pay today
 		if (people[i].paying == "Y") { paid++; };
 		var enjoyed = people[i].enjoyed;
+		
 // 		Add 1 if selected as an imbiber today
 		if (people[i].imbibed == "Y") { enjoyed++ };
-    	var ratio = 100 * (paid / enjoyed);
+		
+// 		Calculate the new ratio
+		var ratio = 100 * (paid / enjoyed);
     	ratio = ratio.toFixed(0);
-//     	Insert imbibers into the sorted array by ratio - leave the lowest ratio at the top of the array
-    	if (people[i].imbibed == "Y") {
-    		if (highlight.length == 0) { 
-    			highlight[0] = i;
-    			ratios[0] = ratio;
-    			}
-			else {
-				var Hlen = highlight.length;
-// 				Find where to slot the imbiber in
-				for (j = 0; j < Hlen; j++) {
-					if (ratios[j] > ratio) {
-// 						Shove everyone else down one to make room
-						for (k = j; k < Hlen; k++) {
-							highlight[k + 1] = highlight[k];
-							ratios[k + 1] = ratios[k];
-						}
-						highlight[j] = i;
-						ratios[j] = ratio;
-					}
-				}
-    		}
-    	}
-    	
-    	
+		if (isNaN(ratio)) { ratio = 0; };
+		
+// 		If an imbiber, add to the candidates list of donors for ranking
+		if (people[i].imbibed == "Y") {
+			var candidate = {};
+			candidate.name = people[i].name;
+			candidate.ratio = ratio;
+			candidates[candindx++] = candidate;
+			};
+
+// 		Update the button text 
    		var rId = people[i].name.concat("P");
-   		var name = people[i].name;
-   		if (isNaN(ratio)) { ratio = 0; };
 		var update = "".concat(ratio,"% (", paid, "/", enjoyed, ")");
     	document.getElementById(rId).innerHTML = update;
     }
+    
+//     Sort the candidates by ratio to have the lowest ratio placed first
+    candidates.sort(function(a, b){return a.ratio - b.ratio});
     
 //  Make a second pass now that the sorting is done to highlight the second column buttons according to who is selected for what and who is the best candidate.
 //  Store the set of updates implied by the current selection in the hidden textarea field updateData	
@@ -392,26 +384,23 @@ function refreshRatios() {
 			document.getElementById("updateData").value = document.getElementById("updateData").value.concat("P ",people[i].name, ";E ",people[i].name,";");
 			}
 		else {
-			if (highlight.length > 0) {
-				if (highlight[0] == i) { 
+			if (people[i].imbibed == "Y") {
+				if (people[i].name == candidates[0].name) { 
+// 					Give the first candidate with the lowest ratio a yellow highlight
 					document.getElementById(rId).className = "payHighlight";
 					document.getElementById("updateData").value = document.getElementById("updateData").value.concat("E ",people[i].name,";"); 
 					}
 				else { 
-					if (people[i].imbibed == "Y") {
-						document.getElementById(rId).className = "payImbiber";
-						document.getElementById("updateData").value = document.getElementById("updateData").value.concat("E ",people[i].name,";"); 
-						}
-					else {
-						document.getElementById(rId).className = "pay";
+// 					All other imbibers are highlit with darker text and border
+					document.getElementById(rId).className = "payImbiber";
+					document.getElementById("updateData").value = document.getElementById("updateData").value.concat("E ",people[i].name,";"); 
 					}
 				}
-			}
 			else {
 				document.getElementById(rId).className = "pay";
+				}
 			}
 		}
-    }
 	return true;
 }
 
