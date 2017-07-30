@@ -6,8 +6,9 @@
 A web app with client-side Javascript to record who partook of wine and who donated the wine at a Suspects' lunch.
  -->
 
-<?php $version = "4.3"; ?>
+<?php $version = "4.4"; ?>
 <!--
+Version 4.4: Sort the people's buttons based on imbibing
 Version 4.3: Sort the candidates using sort()
 Version 4.2: Realign buttons in a single table to save space
 Version 4.1: Button placement changes
@@ -286,6 +287,66 @@ Clicking a name in the first column indicates the person imbibed. Clicking the b
 indicates they are donating. The order of the people is fixed and based loosely on the frequency or imbibing and 
 alphabetical order. Sorting by imbibing might be a future feature.
  -->
+
+<?php
+// read history into array
+    $firsttime = 0;
+    $fh = fopen("winehistory.txt","r") 
+    	or $firsttime = 1;
+    
+    if ($firsttime) {
+    	echo "No history";
+    	 }
+	else {
+		// Read the history file and build the statistics of donations and imbibing
+		$i = 0;
+		$nameindx = 1; 	
+		while(!feof($fh)) {
+	 		$line[$i] = fgets($fh);
+	 		$act = substr($line[$i],0,1);
+	 		$name = substr(substr($line[$i],2),0,strpos(substr($line[$i ],2)," "));
+	 		// build a table of names. Note the history file has been edited to include entries starting with "N" to ensure everyone is in this table
+	 		// even if they never imbibe/donate. Two tables are built - $names to track each unique name and assign it an index, and $count to track the 
+	 		// number of imbibings and donations per name. $name is indexed by the name of the person. $count is indexed by the number held in $names, and is an array of arrays,
+	 		// where the second array is indexed by 0, 1 & 2. The 0th element holds the name of teh person, the 1th holds the count of donations ("P" for paid), and the 2th element the count of imbibings ("E" for enjoyed)
+	 		if ($names[$name] == NULL) {
+	 			$names[$name] = $nameindx;
+	 			$indx = $nameindx;	 		
+	 			$nameindx = $nameindx + 1;
+	 		}
+	 		else {
+	 			$indx = $names[$name];
+	 		}
+	 		// count the number of times paid and imbibed for each name
+	 		$count[$indx][0] = $name;
+	 		if ($act == "P"){ 
+	 			$count[$indx][1]++;
+	 		}
+	 		if ($act == "E") {
+	 			$count[$indx][2]++;
+	 		}
+	 		$i = $i + 1;
+	 	}
+	 	
+		// for each person, tidy up counts
+	 	for ($row = 0; $row < count($count); $row++) {
+	 		if ($count[$row][1] == NULL) {
+	 			$count[$row][2] = 0;
+	 		}
+	 		if ($count[$row][2] == NULL) {
+	 			$count[$row][2] = 0;
+	 		}	 		
+	 	}
+	 }
+	 fclose($fh);
+	 
+// 	 Now sort them by imbibings
+	$count.sort(function(a,b) {return b[2]-a[2];});
+	
+	 
+?>
+
+
 
 <table class="buttontable" width="100%" border="0">
 <tbody>
